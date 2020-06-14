@@ -13,3 +13,9 @@ Quaisqueres futuraas duvidas estamos dispostos a toma-las.
 
 Att
 Alex.S & Rafael.N
+
+Referencias:
+https://www.youtube.com/watch?v=4_9twnEduFA&t=171s
+https://www.youtube.com/watch?v=0RryiSjpJn0&t=5s
+https://www.youtube.com/watch?v=3RTuzhyYGrg
+https://stackoverflow.com/questions/20161960/how-can-i-get-the-number-of-lives-change-pygamer
