@@ -163,3 +163,44 @@ def level(screen, qtd_jogadas, cores):
         # Processa os eventos (mouse, teclado, botão, etc).
         for event in pygame.event.get():
           
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                posx = event.pos[0]
+                posy = event.pos[1]
+                j_frutinha = int((posx - x_init)/tamanho_bolinha)
+                i_frutinha = int((posy- y_init)/tamanho_bolinha)
+                
+                if i_frutinha >= 0 and i_frutinha < 7 \
+                    and j_frutinha >= 0 and j_frutinha < 7 \
+                    and tabuleiro_bolinha[i_frutinha][j_frutinha]:
+                    if len(lista_pontinhos) == 0:
+                        cor = tabuleiro_bolinha[i_frutinha][j_frutinha].cor
+                        lista_pontinhos.append((i_frutinha, j_frutinha, cor, posx,posy))
+                    else:
+                        nova_cor = tabuleiro_bolinha[i_frutinha][j_frutinha].cor
+
+                        if len(lista_pontinhos) == 1 and cor != nova_cor:
+                            lista_pontinhos = []
+                            cor = tabuleiro_bolinha[i_frutinha][j_frutinha].cor
+                            if e not in lista_pontinhos:
+                                lista_pontinhos.append((i_frutinha, j_frutinha, cor, posx,posy))
+                        else:
+                            nova_cor = tabuleiro_bolinha[i_frutinha][j_frutinha].cor
+                            ultima_frutinha = lista_pontinhos[-1]
+                            nova_frutinha = (i_frutinha, j_frutinha, nova_cor, posx, posy)
+                            diferenca = (abs(ultima_frutinha[0] - i_frutinha), abs(ultima_frutinha[1] - j_frutinha))
+                            if diferenca in [(1, 0), (0, 1)] and ultima_frutinha[2] == nova_cor and not nova_frutinha in lista_pontinhos:
+                                lista_pontinhos.append(nova_frutinha)
+                    print(lista_pontinhos)
+                       
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    if len(lista_pontinhos) > 1:
+                        pontuacao[cor] += len(lista_pontinhos)
+                        for b in lista_pontinhos:
+                            i_frutinha = b[0]
+                            j_frutinha = b[1]
+                            tabuleiro_bolinha[i_frutinha][j_frutinha].kill()
+                            tabuleiro_bolinha[i_frutinha][j_frutinha] = None                            
+                        lista_pontinhos = []
+                        qnt_jogadas -= 1
+                        cor = None
