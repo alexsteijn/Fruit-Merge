@@ -288,5 +288,55 @@ def level(screen, qtd_jogadas, cores):
         
     
     return QUIT
+    
+
+def screen_init(screen):
+    # Variável para o ajuste de velocidade
+    clock = pygame.time.Clock()
+
+    # Carrega o fundo da tela inicial
+    background = pygame.image.load(path.join(img_dir, 'tela_inicial.jpg')).convert()
+    background_rect = background.get_rect()
+
+    running = True
+    while running:
+        
+        # Ajusta a velocidade do jogo.
+        clock.tick(FPS)
+        
+        # Processa os eventos (mouse, teclado, botão, etc).
+        for event in pygame.event.get():
+            # Verifica se foi fechado.
+            if event.type == pygame.QUIT:
+                state = QUIT
+                running = False
+
+            if event.type == pygame.KEYUP:
+                state = GAME
+                running = False
+                
+            if pygame.mouse.get_pressed()[0]:
+                
+                #Pega a posição do click
+                x,y = pygame.mouse.get_pos()
+                if (x > 405 and y > 285) and (x > 405 and y < 434) and (x < 770 and y < 434) and (x < 770 and y > 285):
+                     state = GAME
+                     running = False
+                elif (x > 405 and y > 484) and (x > 405 and y < 622) and (x < 747 and y < 629) and (x < 741 and y > 475):
+                     state = INSTRUCOES
+                     running = False
+
+
+                print("click {0},{1}".format(x,y))
+                
+        # A cada loop, redesenha o fundo e os sprites
+        screen.fill(PRETO)
+        screen.blit(background, background_rect)
+
+        # Depois de desenhar tudo, inverte o display.
+        pygame.display.flip()
+
+    return state
+
 
 
