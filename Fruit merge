@@ -245,3 +245,48 @@ def level(screen, qtd_jogadas, cores):
             ba = lista_pontinhos[i - 1]
             bb = lista_pontinhos[i]
             
+            xa = ba[1] * tamanho_bolinha + (x_init + 30.5)
+            ya = ba[0] * tamanho_bolinha + (y_init + 30.5)
+            
+            xb = bb[1] * tamanho_bolinha + (x_init + 30.5)
+            yb = bb[0] * tamanho_bolinha + (y_init + 30.5)
+
+            cor_usada = LISTA_CORES[cor]
+            
+            pygame.draw.line(screen, cor_usada, (xa, ya), (xb, yb), 10)
+                    
+      
+        text_surface = score_fonte.render(f"SCORE: {jogadas_amar}", True, PRETO)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (WIDTH-110,  110)
+        screen.blit(text_surface, text_rect)
+
+        text_surface = score_fonte.render(f"JOGADAS: {qnt_jogadas}", True, PRETO)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (WIDTH-105, 150)
+        screen.blit(text_surface, text_rect)
+        
+        # Depois de desenhar tudo, inverte o display.
+        pygame.display.flip()
+
+        # Monta o score.
+        jogadas_amar = 0
+        for k in range(len(cores)):
+            if pontuacao[k] <= cores[k]:
+                jogadas_amar += pontuacao[k]
+            else:
+                jogadas_amar += cores[k]
+        
+        # Checa se o objetivo foi atingido:
+        venceu = True
+        for k in range(len(cores)):
+            if pontuacao[k] < cores[k]:
+                venceu = False
+        
+        if venceu:
+            return screen # Mudar isso!
+        
+    
+    return QUIT
+
+
