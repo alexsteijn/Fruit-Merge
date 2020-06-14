@@ -340,3 +340,42 @@ def screen_init(screen):
 
 
 
+def inst(screen):
+    # Variável para o ajuste de velocidade
+    clock = pygame.time.Clock()
+
+    # Carrega o fundo da tela inicial
+    background = pygame.image.load(path.join(img_dir, 'objetivo.jpg')).convert()
+    background_rect = background.get_rect()
+
+    running = True
+    while running:
+        
+        # Ajusta a velocidade do jogo.
+        clock.tick(FPS)
+        
+        # Processa os eventos (mouse, teclado, botão, etc).
+        for event in pygame.event.get():
+            # Verifica se foi fechado.
+            if event.type == pygame.QUIT:
+                state = QUIT
+                running = False
+                
+            if pygame.mouse.get_pressed()[0]:
+                
+                #Pega a posição do click                    
+                x,y = pygame.mouse.get_pos()
+                if (x > 885 and y > 576) and (x > 893 and y < 662) and (x < 1117 and y < 668) and (x < 1114 and y > 571):
+                     state = GAME #nivel1
+                     running = False
+
+                print("click {0},{1}".format(x,y))
+                
+        # A cada loop, redesenha o fundo e os sprites
+        screen.fill(PRETO)
+        screen.blit(background, background_rect)
+
+        # Depois de desenhar tudo, inverte o display.
+        pygame.display.flip()
+
+    return state
