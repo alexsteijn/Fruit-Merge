@@ -379,3 +379,54 @@ def inst(screen):
         pygame.display.flip()
 
     return state
+def qual_fase(screen, numero_fases):
+    # Variável para o ajuste de velocidade
+    clock = pygame.time.Clock()
+
+    # Carrega o fundo da tela inicial
+    tela = "nivel{0}.jpg".format(numero_fases)
+    background = pygame.image.load(path.join(img_dir, tela)).convert()
+    background_rect = background.get_rect()
+
+    running = True
+    while running:
+        
+        # Ajusta a velocidade do jogo.
+        clock.tick(FPS)
+        
+        # Processa os eventos (mouse, teclado, botão, etc).
+        for event in pygame.event.get():
+            # Verifica se foi fechado.
+            if event.type == pygame.QUIT:
+                state = QUIT
+                running = False
+                
+            if pygame.mouse.get_pressed()[0]:
+                x,y = pygame.mouse.get_pos()
+                if (x > 885 and y > 576) and (x > 893 and y < 662) and (x < 1117 and y < 668) and (x < 1114 and y > 571):
+                    state = GAME
+                    running = False
+                    
+        screen.fill(PRETO)
+        screen.blit(background, background_rect)
+
+        # Depois de desenhar tudo, inverte o display.
+        pygame.display.flip()
+
+    return state
+
+
+try:
+    state = INIT
+    while state != QUIT:
+        if state == INIT:
+            state = screen_init(screen)
+        elif state == GAME:
+            state = jogo(screen)
+        elif state == INSTRUCOES:
+            state = inst(screen)
+        else:
+            state = QUIT
+finally:
+    pygame.quit()
+
