@@ -1,0 +1,40 @@
+INIT = 0
+GAME = 1
+INSTRUCOES = 2
+QUIT = 3
+
+VERD = (160, 231, 190)
+VERM = (205, 44, 65)
+AZUL = (139, 165, 235)
+AMAR = (204, 173, 26)
+LISTA_CORES=[VERM, AMAR, VERD, AZUL]
+
+
+# Importando as bibliotecas usadas.
+import pygame
+import random
+from os import path
+
+# Estabelece a pasta que contem as imagens.
+img_dir = path.join(path.dirname(__file__), 'Imagens')
+fnt_dir = path.join(path.dirname(__file__), 'Fonte')
+
+# informaçoes gerais do jogo.
+WIDTH = 1200 # Largura da tela
+HEIGHT = 700 # Altura da tela
+FPS = 30 # Frames por segundo
+
+# Define algumas variáveis com as cores básicas
+BRANCO = (255, 255, 255)
+PRETO = (0, 0, 0)
+VERMELHO = (255, 0, 0)
+VERDE = (0, 255, 0)
+AZUL1 = (0, 0, 255)
+AMARELO = (255, 255, 0)
+
+#criando a classe dos frutinhas
+class Pontinhos(pygame.sprite.Sprite):
+    
+    #Construtor da classe
+    def __init__(self, x, y):
+        arquivo_cores = ["ponto_vermelho.jpg", "ponto_amarelo.jpg", "ponto_verde.jpg", "ponto_azul.jpg"]
