@@ -123,3 +123,43 @@ def level(screen, qtd_jogadas, cores):
     quadrado = pygame.image.load(path.join(img_dir, 'quadrado.png')).convert()
     quadrado.set_colorkey(BRANCO)
     quadrado = pygame.transform.scale(quadrado,(600, 600))
+    
+    
+    # Cria um grupo de sprites e adiciona a nave.
+    all_sprites = pygame.sprite.Group()
+    
+    x_init = 345 
+    y_init = HEIGHT-7*79
+    
+    x = x_init
+    y = y_init
+    tamanho_bolinha = 76
+    tabuleiro_bolinha = []
+    for e in range(7):
+        linha_bolinha = []
+        for i in range(7):
+            a1 = Pontinhos(x, y)
+            all_sprites.add(a1)
+            linha_bolinha.append(a1)
+            x += tamanho_bolinha
+        tabuleiro_bolinha.append(linha_bolinha)
+        y += tamanho_bolinha
+        x = x_init
+        
+    
+    lista_pontinhos = []
+    cor = None
+    
+    qnt_jogadas = qtd_jogadas
+    jogadas_amar = 0
+    
+    # Loop principal.
+    running = True
+    while running:
+        
+        # Ajusta a velocidade do jogo.
+        clock.tick(FPS)
+        
+        # Processa os eventos (mouse, teclado, botão, etc).
+        for event in pygame.event.get():
+          
