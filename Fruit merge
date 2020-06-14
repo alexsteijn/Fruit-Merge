@@ -38,3 +38,44 @@ class Pontinhos(pygame.sprite.Sprite):
     #Construtor da classe
     def __init__(self, x, y):
         arquivo_cores = ["ponto_vermelho.jpg", "ponto_amarelo.jpg", "ponto_verde.jpg", "ponto_azul.jpg"]
+        
+        # Construtor da classe pai (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+        
+        # Carregando a foto de fundo.
+        self.cor = random.randint(0,3)
+        player_img = pygame.image.load(path.join(img_dir, arquivo_cores[self.cor])).convert()
+
+        self.image = player_img
+        
+        # Botando imagem em escala.
+        self.image = pygame.transform.scale(player_img, (60, 60))
+        
+        # Deixando transparente.
+        self.image.set_colorkey(BRANCO)
+        
+        # Detalhes sobre o posicionamento.
+        self.rect = self.image.get_rect()
+        
+        # Centraliza embaixo da tela.
+        self.rect.x = x
+        self.rect.y = y
+        
+        # Velocidade de movimento
+        self.speedx = 0
+        
+    # Metodo que atualiza posição
+    def update(self):
+        self.rect.x += self.speedx
+        # Mantem dentro da tela
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+        if self.rect.left < 0:
+            self.rect.left = 0
+        
+
+# Inicialização do Pygame.
+pygame.init()
+pygame.mixer.init()
+
+# Tamanho da tela.
